@@ -296,105 +296,176 @@
                 <div class="credibility-note">Comparative descriptive view, not a causal economic model.</div>
             </div>
 
-            <div class="comparison-board-container">
-                <div class="board-header">
-                    <div class="header-cell">Economy</div>
-                    <div class="header-cell">Rebound signal</div>
-                    <div class="header-cell">Pressure signal</div>
-                    <div class="header-cell">Reading</div>
-                </div>
-                
-                <!-- China -->
-                <div class="board-row">
-                    <div class="economy-cell">China</div>
-                    <div class="rebound-cell">
-                        <div class="signal-group">
-                            <div class="signal-item"><span class="signal-pill">2020</span> <span class="val highlight-teal">2.34%</span></div>
-                            <div class="signal-item"><span class="signal-pill">2021</span> <span class="val highlight-teal">8.57%</span></div>
+            <div class="board-wrapper">
+                <div class="comparison-board">
+                    <!-- Header -->
+                    <div class="board-header">
+                        <div class="board-col col-economy">Economy</div>
+                        <div class="board-col col-rebound">Rebound signal</div>
+                        <div class="board-col col-pressure">Pressure signal</div>
+                        <div class="board-col col-reading">Reading</div>
+                    </div>
+                    
+                    <!-- China -->
+                    <div class="board-row">
+                        <div class="board-col col-economy">
+                            <span class="economy-name">China</span>
+                        </div>
+                        <div class="board-col col-rebound">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2020 GDP</span>
+                                    <span class="metric-value highlight-teal">2.34%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">2021 GDP</span>
+                                    <span class="metric-value highlight-teal">8.57%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-pressure">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2023 inflation</span>
+                                    <span class="metric-value highlight-amber">0.23%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-reading">
+                            <div class="reading-badge">Structurally different recovery pattern</div>
                         </div>
                     </div>
-                    <div class="pressure-cell">
-                        <div class="signal-item"><span class="signal-pill">2023 inf</span> <span class="val highlight-amber">0.23%</span></div>
+
+                    <!-- France -->
+                    <div class="board-row">
+                        <div class="board-col col-economy">
+                            <span class="economy-name">France</span>
+                        </div>
+                        <div class="board-col col-rebound">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2020 GDP</span>
+                                    <span class="metric-value highlight-red">-7.44%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">2021 GDP</span>
+                                    <span class="metric-value highlight-teal">6.88%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-pressure">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2022 inflation</span>
+                                    <span class="metric-value highlight-amber">5.22%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-reading">
+                            <div class="reading-badge">Rebound mattered, but quality still needed caution</div>
+                        </div>
                     </div>
-                    <div class="reading-cell">
-                        <span class="reading-summary">Structurally different recovery pattern</span>
+
+                    <!-- Germany -->
+                    <div class="board-row">
+                        <div class="board-col col-economy">
+                            <span class="economy-name">Germany</span>
+                        </div>
+                        <div class="board-col col-rebound">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2020 GDP</span>
+                                    <span class="metric-value highlight-red">-4.13%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">2023 GDP</span>
+                                    <span class="metric-value highlight-red">-0.87%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-pressure">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2022 inflation</span>
+                                    <span class="metric-value highlight-red">6.87%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">2023 inflation</span>
+                                    <span class="metric-value highlight-amber">5.95%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-reading">
+                            <div class="reading-badge">Recovery weakened later</div>
+                        </div>
+                    </div>
+
+                    <!-- Singapore -->
+                    <div class="board-row">
+                        <div class="board-col col-economy">
+                            <span class="economy-name">Singapore</span>
+                        </div>
+                        <div class="board-col col-rebound">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2020 GDP</span>
+                                    <span class="metric-value highlight-red">-3.81%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">2021 GDP</span>
+                                    <span class="metric-value highlight-teal">9.76%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-pressure">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2022 inflation</span>
+                                    <span class="metric-value highlight-amber">6.13%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-reading">
+                            <div class="reading-badge">Fastest rebound, but later pressure changed the reading</div>
+                        </div>
+                    </div>
+
+                    <!-- United States -->
+                    <div class="board-row">
+                        <div class="board-col col-economy">
+                            <span class="economy-name">United States</span>
+                        </div>
+                        <div class="board-col col-rebound">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2020 GDP</span>
+                                    <span class="metric-value highlight-red">-2.16%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">2021 GDP</span>
+                                    <span class="metric-value highlight-teal">6.06%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-pressure">
+                            <div class="metric-block">
+                                <div class="metric-item">
+                                    <span class="metric-label">2022 inflation</span>
+                                    <span class="metric-value highlight-red">8.00%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-col col-reading">
+                            <div class="reading-badge">Clear rebound, but strongest inflation pressure</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- France -->
-                <div class="board-row">
-                    <div class="economy-cell">France</div>
-                    <div class="rebound-cell">
-                        <div class="signal-group">
-                            <div class="signal-item"><span class="signal-pill">2020</span> <span class="val highlight-red">-7.44%</span></div>
-                            <div class="signal-item"><span class="signal-pill">2021</span> <span class="val highlight-teal">6.88%</span></div>
-                        </div>
+                <div class="board-summary-panel">
+                    <div class="summary-content">
+                        <h4>Combined reading</h4>
+                        <p>Fast recovery and stable recovery were not always the same. Cross-country comparison showed that rebound strength and inflation pressure often changed the recovery reading.</p>
                     </div>
-                    <div class="pressure-cell">
-                        <div class="signal-item"><span class="signal-pill">2022 inf</span> <span class="val highlight-amber">5.22%</span></div>
-                    </div>
-                    <div class="reading-cell">
-                        <span class="reading-summary">Rebound mattered, but quality still needed caution</span>
-                    </div>
-                </div>
-
-                <!-- Germany -->
-                <div class="board-row">
-                    <div class="economy-cell">Germany</div>
-                    <div class="rebound-cell">
-                        <div class="signal-group">
-                            <div class="signal-item"><span class="signal-pill">2020</span> <span class="val highlight-red">-4.13%</span></div>
-                            <div class="signal-item"><span class="signal-pill">2023</span> <span class="val highlight-red">-0.87%</span></div>
-                        </div>
-                    </div>
-                    <div class="pressure-cell">
-                        <div class="signal-group">
-                            <div class="signal-item"><span class="signal-pill">2022 inf</span> <span class="val highlight-red">6.87%</span></div>
-                            <div class="signal-item"><span class="signal-pill">2023 inf</span> <span class="val highlight-amber">5.95%</span></div>
-                        </div>
-                    </div>
-                    <div class="reading-cell">
-                        <span class="reading-summary">Recovery weakened later</span>
-                    </div>
-                </div>
-
-                <!-- Singapore -->
-                <div class="board-row">
-                    <div class="economy-cell">Singapore</div>
-                    <div class="rebound-cell">
-                        <div class="signal-group">
-                            <div class="signal-item"><span class="signal-pill">2020</span> <span class="val highlight-red">-3.81%</span></div>
-                            <div class="signal-item"><span class="signal-pill">2021</span> <span class="val highlight-teal">9.76%</span></div>
-                        </div>
-                    </div>
-                    <div class="pressure-cell">
-                        <div class="signal-item"><span class="signal-pill">2022 inf</span> <span class="val highlight-amber">6.13%</span></div>
-                    </div>
-                    <div class="reading-cell">
-                        <span class="reading-summary">Fastest rebound, but later pressure changed the reading</span>
-                    </div>
-                </div>
-
-                <!-- United States -->
-                <div class="board-row">
-                    <div class="economy-cell">United States</div>
-                    <div class="rebound-cell">
-                        <div class="signal-group">
-                            <div class="signal-item"><span class="signal-pill">2020</span> <span class="val highlight-red">-2.16%</span></div>
-                            <div class="signal-item"><span class="signal-pill">2021</span> <span class="val highlight-teal">6.06%</span></div>
-                        </div>
-                    </div>
-                    <div class="pressure-cell">
-                        <div class="signal-item"><span class="signal-pill">2022 inf</span> <span class="val highlight-red">8.00%</span></div>
-                    </div>
-                    <div class="reading-cell">
-                        <span class="reading-summary">Clear rebound, but strongest inflation pressure</span>
-                    </div>
-                </div>
-
-                <div class="combined-reading-panel">
-                    <h4>Combined reading</h4>
-                    <p>Fast recovery and stable recovery were not always the same. Cross-country comparison showed that rebound strength and inflation pressure often changed the recovery reading.</p>
                 </div>
             </div>
         </section>

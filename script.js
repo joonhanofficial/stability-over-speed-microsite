@@ -64,4 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
             interactiveCards.forEach(card => card.classList.remove('active'));
         }
     });
+
+    // Recovery Signal Explorer (Hero Module) Interaction
+    const countryBtns = document.querySelectorAll('.country-btn');
+    const signalPanels = document.querySelectorAll('.signal-panel');
+
+    function switchCountryPanel(e) {
+        const targetBtn = e.currentTarget;
+        const targetCountry = targetBtn.getAttribute('data-country');
+
+        // Remove active class from all buttons and panels
+        countryBtns.forEach(btn => btn.classList.remove('active'));
+        signalPanels.forEach(panel => panel.classList.remove('active'));
+
+        // Add active class to selected button and corresponding panel
+        targetBtn.classList.add('active');
+        const targetPanel = document.getElementById(`panel-${targetCountry}`);
+        if (targetPanel) {
+            targetPanel.classList.add('active');
+        }
+    }
+
+    countryBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', switchCountryPanel);
+        btn.addEventListener('click', switchCountryPanel);
+    });
 });

@@ -510,19 +510,19 @@ section {
 }
 
 .country-card {
-    height: 320px; /* Increased to accommodate structured back content */
+    height: 350px; /* Increased to prevent clipping of additional signals */
 }
 
 .country-card .card-back {
     justify-content: flex-start;
-    padding-top: 1.5rem;
+    padding: 1.5rem; /* Reduced from 2rem to maximize vertical space */
 }
 
 .country-name {
     font-size: 1.5rem;
     font-weight: 600;
     display: block;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border-light);
 }
@@ -541,7 +541,7 @@ section {
     font-style: normal;
     border-left: none;
     padding-left: 0;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     line-height: 1.4;
     font-size: 0.9rem !important;
 }

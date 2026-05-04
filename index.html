@@ -30,38 +30,97 @@
     <main>
         <!-- 1. Hero -->
         <section id="hero" class="hero-section">
-            <div class="hero-content">
-                <h1 class="hero-title">Stability Over Speed</h1>
-                <h2 class="hero-subtitle">A self-directed SQL and Tableau case study testing whether post-COVID recovery still looked strong when GDP growth was read alongside inflation pressure.</h2>
-                
-                <div class="hero-statement-box">
-                    <p class="hero-statement">Headline GDP numbers showed visible rebound after 2020. This diagnostic asked whether that rebound still looked stable once inflation was added as a second pressure signal.</p>
-                    <p class="hero-framing">GDP showed the rebound. Inflation changed the reading.</p>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Stability Over Speed</h1>
+                    <h2 class="hero-subtitle">A self-directed SQL and Tableau case study testing whether post-COVID recovery still looked strong once GDP growth was read alongside inflation pressure.</h2>
+                    
+                    <div class="hero-statement-box">
+                        <p class="hero-statement">Headline GDP rebound looked positive after 2020. This diagnostic tested whether that recovery still looked stable once inflation was added as a second pressure signal.</p>
+                        <span class="thesis-label">Core diagnostic</span>
+                        <p class="hero-framing">GDP showed the rebound. Inflation changed the reading.</p>
+                    </div>
+
+                    <div class="stat-cards">
+                        <div class="stat-card">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Economies</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">2018&ndash;2023</span>
+                            <span class="stat-label">timeframe</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">30</span>
+                            <span class="stat-label">country-year rows</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">recovery signals</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="stat-cards">
-                    <div class="stat-card">
-                        <span class="stat-number">5</span>
-                        <span class="stat-label">countries</span>
+                <div class="hero-interactive-module">
+                    <div class="module-header">
+                        <h3>Recovery Signal Explorer</h3>
+                        <p>Hover or tap a country to inspect how the recovery reading changes.</p>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">2018&ndash;2023</span>
-                        <span class="stat-label">timeframe</span>
+                    
+                    <div class="country-selector">
+                        <button class="country-btn active" data-country="china">China</button>
+                        <button class="country-btn" data-country="france">France</button>
+                        <button class="country-btn" data-country="germany">Germany</button>
+                        <button class="country-btn" data-country="singapore">Singapore</button>
+                        <button class="country-btn" data-country="united-states">United States</button>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">30</span>
-                        <span class="stat-label">country-year rows</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">2</span>
-                        <span class="stat-label">recovery signals</span>
-                    </div>
-                </div>
 
-                <div class="hero-ctas">
-                    <a href="https://www.joonhananalytics.com/case-studies/economic-data-pipeline" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Read Full Case Study</a>
-                    <a href="GITHUB_PROJECT_REPO_URL_HERE" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">View GitHub Repo</a>
-                    <a href="https://www.joonhananalytics.com/contact" class="btn btn-tertiary" target="_blank" rel="noopener noreferrer">Contact / Portfolio</a>
+                    <div class="signal-panels">
+                        <div class="signal-panel active" id="panel-china">
+                            <h4>China</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Positive 2020 growth</span>
+                                <span class="signal-num highlight-amber">2.34% <small>GDP growth in 2020</small></span>
+                            </div>
+                            <p class="interpretation">China was the only selected economy that stayed positive in 2020, so its recovery path should not be read the same way as the contraction-and-rebound pattern seen elsewhere.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-france">
+                            <h4>France</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Sharpest contraction</span>
+                                <span class="signal-num highlight-red">-7.44% <small>GDP growth in 2020</small></span>
+                            </div>
+                            <p class="interpretation">France showed the deepest 2020 contraction in this comparison, making rebound important but not enough to judge recovery quality alone.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-germany">
+                            <h4>Germany</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Recovery weakened later</span>
+                                <span class="signal-num highlight-red">-0.87% <small>GDP growth in 2023</small></span>
+                            </div>
+                            <p class="interpretation">Germany showed that recovery was not a straight-line rebound. Growth turned negative in 2023 while inflation remained elevated at 5.95%.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-singapore">
+                            <h4>Singapore</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Fastest rebound</span>
+                                <span class="signal-num highlight-teal">9.76% <small>GDP growth in 2021</small></span>
+                            </div>
+                            <p class="interpretation">Singapore had the strongest rebound in 2021, but later inflation pressure showed why speed should not be treated as stability by itself.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-united-states">
+                            <h4>United States</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Highest inflation pressure</span>
+                                <span class="signal-num highlight-blue">8.00% <small>inflation in 2022</small></span>
+                            </div>
+                            <p class="interpretation">The United States rebounded after 2020, but inflation pressure changed how strong that recovery looked.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

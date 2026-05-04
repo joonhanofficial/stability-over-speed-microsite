@@ -1,589 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stability Over Speed | Recovery Quality Analysis</title>
-    <meta name="description" content="A data-driven microsite exploring why recovery quality matters more than rebound speed.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="top-nav">
-        <div class="nav-brand">Stability Over Speed</div>
-        <div class="nav-links">
-            <a href="#problem">The Metric Trap</a>
-            <a href="#diagnostic">Diagnostic View</a>
-            <a href="#pipeline">Data Pipeline</a>
-            <a href="#takeaway">The Shift</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A subscription-level diagnostic of how activation quality shifted across source and plan segments."
+    />
+    <title>When SaaS Activation Looks Stable Until You Segment It</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Diagnostic home">
+        <span class="brand-mark"></span>
+        Joon Han | Digital Diagnostics
+      </a>
+      <nav class="nav-links">
+        <a href="#method">Method</a>
+        <a href="#source-signal">Source</a>
+        <a href="#plan-signal">Plan</a>
+        <a href="#insights">Insights</a>
+        <a href="#links">Links</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">SaaS Activation Diagnostic</p>
+          <p class="hero-explainer">A self-directed case study using public SaaS subscription data to examine where activation quality changed across referral source and plan tier.</p>
+          <h1>
+            When SaaS Activation Looks Stable
+            <span>Until You Segment It.</span>
+          </h1>
+          <p class="business-question">
+            A subscription-level diagnostic of how activation quality shifted across source and plan segments.
+          </p>
+          <div class="tool-stack" aria-label="Tool stack">
+            <span>Segmentation</span>
+            <span>Diagnostic</span>
+            <span>Product Analytics</span>
+          </div>
+          <p class="result-statement">
+            The headline metric looked stable. The useful signal appeared only after segmentation. The business question was not whether activation existed, but where activation quality changed by acquisition source and plan tier.
+          </p>
+          <div class="hero-stat-strip" aria-label="Hero case study highlights">
+            <div>
+              <strong class="counter" data-target="50.92">50.92%</strong>
+              <span>overall activation rate</span>
+            </div>
+            <div>
+              <strong>2,546</strong>
+              <span>activated subscriptions</span>
+            </div>
+            <div>
+              <strong>5,000</strong>
+              <span>total subscriptions</span>
+            </div>
+          </div>
         </div>
-        <div class="mobile-menu-btn" id="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
 
-    <main>
-        <!-- 1. Hero Section -->
-        <header class="hero-section">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Stability Over Speed</h1>
-                    <p class="hero-subtitle">A rebound number is not a recovery. Stability matters more than speed.</p>
-                    
-                    <div class="hero-statement-box">
-                        <p class="hero-statement">The recovery explorer below shows that while every economy rebounded, the <span class="hero-framing">quality of that recovery</span> varied by the amount of pressure it created.</p>
-                    </div>
-
-                    <div class="stat-cards">
-                        <div class="stat-card">
-                            <span class="stat-number">5</span>
-                            <span class="stat-label">Economies</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">2021</span>
-                            <span class="stat-label">Rebound Year</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">2022</span>
-                            <span class="stat-label">Pressure Peak</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">SQL</span>
-                            <span class="stat-label">Analysis</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-interactive-module" id="hero-explorer">
-                    <div class="module-header">
-                        <span class="thesis-label">Recovery Signal Explorer</span>
-                        <h3>Inspect the signal</h3>
-                        <p>Select an economy to see its core recovery profile.</p>
-                    </div>
-                    
-                    <div class="country-selector">
-                        <button class="country-btn active" data-country="china">China</button>
-                        <button class="country-btn" data-country="france">France</button>
-                        <button class="country-btn" data-country="germany">Germany</button>
-                        <button class="country-btn" data-country="singapore">Singapore</button>
-                        <button class="country-btn" data-country="usa">United States</button>
-                    </div>
-
-                    <div class="signal-panels">
-                        <div class="signal-panel active" id="panel-china">
-                            <h4>China</h4>
-                            <div class="signal-highlight">
-                                <span class="signal-desc">Main Signal</span>
-                                <div class="signal-num highlight-teal">8.57% <small>2021 GDP Growth</small></div>
-                            </div>
-                        </div>
-                        <div class="signal-panel" id="panel-france">
-                            <h4>France</h4>
-                            <div class="signal-highlight">
-                                <span class="signal-desc">Main Signal</span>
-                                <div class="signal-num highlight-teal">6.88% <small>2021 GDP Growth</small></div>
-                            </div>
-                        </div>
-                        <div class="signal-panel" id="panel-germany">
-                            <h4>Germany</h4>
-                            <div class="signal-highlight">
-                                <span class="signal-desc">Main Signal</span>
-                                <div class="signal-num highlight-teal">3.24% <small>2021 GDP Growth</small></div>
-                            </div>
-                        </div>
-                        <div class="signal-panel" id="panel-singapore">
-                            <h4>Singapore</h4>
-                            <div class="signal-highlight">
-                                <span class="signal-desc">Main Signal</span>
-                                <div class="signal-num highlight-teal">9.76% <small>2021 GDP Growth</small></div>
-                            </div>
-                        </div>
-                        <div class="signal-panel" id="panel-usa">
-                            <h4>United States</h4>
-                            <div class="signal-highlight">
-                                <span class="signal-desc">Main Signal</span>
-                                <div class="signal-num highlight-teal">6.06% <small>2021 GDP Growth</small></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- 2. The Metric Trap -->
-        <section id="problem" class="alt-bg">
-            <div class="section-header center">
-                <h2>A rebound number is not the same as recovery quality.</h2>
-                <p class="section-explain">Focusing only on the headline rebound speed can hide the structural pressure underneath. To understand the full picture, we must look beyond the first signal.</p>
-                <p class="instruction-note">Hover or tap cards to reveal diagnostic meaning.</p>
-            </div>
-
-            <div class="diagnostic-cards-grid">
-                <div class="interactive-card diagnostic-card">
-                    <div class="card-front">
-                        <h3>Headline Signal</h3>
-                        <p>The immediate, visible recovery number typically measured by GDP growth after a shock.</p>
-                    </div>
-                    <div class="card-back">
-                        <span class="diagnostic-label">Diagnostic meaning</span>
-                        <h3>Headline Signal</h3>
-                        <p class="interpretation">The rebound. It shows speed and direction but does not measure the cost or the stability of the movement.</p>
-                    </div>
-                </div>
-
-                <div class="interactive-card diagnostic-card">
-                    <div class="card-front">
-                        <h3>Pressure Signal</h3>
-                        <p>The secondary data point—often inflation—that indicates the internal friction of the recovery.</p>
-                    </div>
-                    <div class="card-back">
-                        <span class="diagnostic-label">Diagnostic meaning</span>
-                        <h3>Pressure Signal</h3>
-                        <p class="interpretation">The friction. It shows whether the recovery is overheating the economy or creating new instabilities.</p>
-                    </div>
-                </div>
-
-                <div class="interactive-card diagnostic-card">
-                    <div class="card-front">
-                        <h3>Better Reading</h3>
-                        <p>The combined analytical view that weighs the rebound against the pressure signal.</p>
-                    </div>
-                    <div class="card-back">
-                        <span class="diagnostic-label">Diagnostic meaning</span>
-                        <h3>Better Reading</h3>
-                        <p class="interpretation">The quality. It distinguishes between a stable, sustainable return to growth and a volatile, high-pressure rebound.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Logic Chain -->
-        <section class="logic-section">
-            <div class="section-header">
-                <h2>When GDP rebounds after a shock…</h2>
-                <p class="section-explain">A three-step logic for interpreting recovery quality across different economies.</p>
+        <aside class="hero-panel insight-card reveal" aria-label="Activation summary" tabindex="0" role="button" aria-expanded="false">
+          <div class="panel-topline">
+            <span>Segmentation Lens</span>
+            <strong>From aggregate metric to segmented signal</strong>
+          </div>
+          
+          <div class="diagnostic-card">
+            <div class="diag-section aggregate">
+              <span class="diag-label">Aggregate View</span>
+              <div class="diag-metric">
+                <strong class="counter" data-target="50.92">50.92%</strong>
+                <span>Overall activation rate</span>
+              </div>
             </div>
             
-            <div class="logic-chain">
-                <div class="logic-step highlight">1. Inspect Rebound Speed</div>
-                <div class="logic-arrow">→</div>
-                <div class="logic-step highlight">2. Check Pressure Levels</div>
-                <div class="logic-arrow">→</div>
-                <div class="logic-step focus">3. Score Recovery Quality</div>
+            <div class="diag-divider"></div>
+
+            <div class="diag-section segmented">
+              <span class="diag-label">Segmented View</span>
+              <div class="diag-rows">
+                <div class="diag-chip">
+                  <span class="chip-name">Organic</span>
+                  <div class="chip-track"><div class="chip-fill strong" style="--w: 53.08%"></div></div>
+                  <strong class="chip-value">53.08%</strong>
+                </div>
+                <div class="diag-chip">
+                  <span class="chip-name">Event</span>
+                  <div class="chip-track"><div class="chip-fill strong" style="--w: 52.89%"></div></div>
+                  <strong class="chip-value">52.89%</strong>
+                </div>
+                <div class="diag-chip">
+                  <span class="chip-name">Enterprise</span>
+                  <div class="chip-track"><div class="chip-fill warning" style="--w: 49.16%"></div></div>
+                  <strong class="chip-value warning-text">49.16%</strong>
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+          
+          <div class="panel-footer">
+            <span>Takeaway</span>
+            <strong>The average was not wrong. It was incomplete.</strong>
+          </div>
 
-        <!-- 4. Five Economies Comparison -->
-        <section class="comparison-grid">
-            <div class="section-header">
-                <h2>Five economies. Different recovery readings.</h2>
-                <p class="section-explain">Comparing the primary rebound signal and secondary pressure signals across five major economies from 2020 to 2023.</p>
-                <p class="instruction-note">Hover or tap cards to reveal analysis.</p>
+          <div class="card-insight">
+            50.92% gave the starting point, but source and plan segmentation showed where activation quality actually changed.
+          </div>
+        </aside>
+      </section>
+
+      <section class="content-section" id="method">
+        <div class="section-kicker reveal">Method Challenge</div>
+        <div class="section-heading reveal">
+          <h2>From unstable timing logic to a stronger activation rule.</h2>
+          <p>
+            Measuring activation required discarding unreliable timing logic in favor of deeper engagement indicators.
+          </p>
+        </div>
+        <div class="logic-flow" aria-label="Method challenge logic">
+          <article class="logic-card insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <span>01</span>
+            <h3>Timing logic tested</h3>
+            <p>Measuring activation through time-to-first-usage logic.</p>
+            <div class="card-insight">
+              <strong>Why it mattered:</strong> This is the default approach for many SaaS products, assuming faster usage equals better activation.
             </div>
-
-            <div class="country-cards-grid">
-                <!-- China -->
-                <div class="interactive-card country-card">
-                    <div class="card-front">
-                        <span class="card-eyebrow">Main Signal</span>
-                        <h3>China</h3>
-                        <div class="signal-num highlight-teal">8.57% <small>2021 GDP Growth</small></div>
-                    </div>
-                    <div class="card-back">
-                        <span class="country-name">China</span>
-                        <span class="reveal-sublabel">Recovery reading</span>
-                        <p class="interpretation">Structurally different recovery pattern. China was the only selected economy that stayed positive in 2020.</p>
-                        
-                        <span class="reveal-sublabel">Additional signals</span>
-                        <div class="context-stats">
-                            <span class="context-stat">2021 GDP: 8.57%</span>
-                            <span class="context-stat">2023 inflation: 0.23%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- France -->
-                <div class="interactive-card country-card">
-                    <div class="card-front">
-                        <span class="card-eyebrow">Main Signal</span>
-                        <h3>France</h3>
-                        <div class="signal-num highlight-teal">6.88% <small>2021 GDP Growth</small></div>
-                    </div>
-                    <div class="card-back">
-                        <span class="country-name">France</span>
-                        <span class="reveal-sublabel">Recovery reading</span>
-                        <p class="interpretation">Clear rebound in 2021 after a deep contraction, but faced rising price pressure later.</p>
-                        
-                        <span class="reveal-sublabel">Additional signals</span>
-                        <div class="context-stats">
-                            <span class="context-stat">2021 GDP: 6.88%</span>
-                            <span class="context-stat">2022 inflation: 5.22%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Germany -->
-                <div class="interactive-card country-card">
-                    <div class="card-front">
-                        <span class="card-eyebrow">Main Signal</span>
-                        <h3>Germany</h3>
-                        <div class="signal-num highlight-teal">3.24% <small>2021 GDP Growth</small></div>
-                    </div>
-                    <div class="card-back">
-                        <span class="country-name">Germany</span>
-                        <span class="reveal-sublabel">Recovery reading</span>
-                        <p class="interpretation">A more restrained rebound that weakened later into a second contraction in 2023.</p>
-                        
-                        <span class="reveal-sublabel">Additional signals</span>
-                        <div class="context-stats">
-                            <span class="context-stat">2022 inflation: 6.87%</span>
-                            <span class="context-stat">2023 inflation: 5.95%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Singapore -->
-                <div class="interactive-card country-card">
-                    <div class="card-front">
-                        <span class="card-eyebrow">Main Signal</span>
-                        <h3>Singapore</h3>
-                        <div class="signal-num highlight-teal">9.76% <small>2021 GDP Growth</small></div>
-                    </div>
-                    <div class="card-back">
-                        <span class="country-name">Singapore</span>
-                        <span class="reveal-sublabel">Recovery reading</span>
-                        <p class="interpretation">Strongest immediate rebound signal in the group, followed by a sharp rise in price pressure.</p>
-                        
-                        <span class="reveal-sublabel">Additional signals</span>
-                        <div class="context-stats">
-                            <span class="context-stat">2021 GDP: 9.76%</span>
-                            <span class="context-stat">2022 inflation: 6.13%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- USA -->
-                <div class="interactive-card country-card">
-                    <div class="card-front">
-                        <span class="card-eyebrow">Main Signal</span>
-                        <h3>United States</h3>
-                        <div class="signal-num highlight-teal">6.06% <small>2021 GDP Growth</small></div>
-                    </div>
-                    <div class="card-back">
-                        <span class="country-name">United States</span>
-                        <span class="reveal-sublabel">Recovery reading</span>
-                        <p class="interpretation">Strong consumer-led rebound, but also recorded the highest inflation pressure in the group.</p>
-                        
-                        <span class="reveal-sublabel">Additional signals</span>
-                        <div class="context-stats">
-                            <span class="context-stat">2022 inflation: 8.00%</span>
-                            <span class="context-stat">2021 GDP: 6.06%</span>
-                        </div>
-                    </div>
-                </div>
+          </article>
+          <article class="logic-card insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <span>02</span>
+            <h3>Timing logic rejected</h3>
+            <p>A large share of subscriptions showed first usage earlier than subscription start.</p>
+            <div class="card-insight">
+              <strong>Risk solved:</strong> Prevented false positives by discarding unreliable sequencing logic.
             </div>
-        </section>
-
-        <!-- 5. GDP vs Inflation Diagnostic View -->
-        <section id="diagnostic" class="diagnostic-section alt-bg">
-            <div class="section-header">
-                <h2>GDP showed the rebound. Inflation changed the reading.</h2>
-                <p class="section-explain">GDP growth showed the rebound signal. Inflation showed whether that rebound happened under pressure. Reading both side by side across the five economies made the recovery picture more cautious and more comparable.</p>
-                <div class="credibility-note">Comparative descriptive view, not a causal economic model.</div>
+          </article>
+          <article class="logic-card insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <span>03</span>
+            <h3>Usage depth summarized</h3>
+            <p>Shifting focus to actual usage records and distinct feature utilization.</p>
+            <div class="card-insight">
+              <strong>Why it mattered:</strong> Reflects deeper product engagement instead of simple login timestamps.
             </div>
-
-            <div class="board-wrapper">
-                <div class="comparison-board">
-                    <!-- Header -->
-                    <div class="board-header">
-                        <div class="board-col col-economy">Economy</div>
-                        <div class="board-col col-rebound">Rebound signal</div>
-                        <div class="board-col col-pressure">Pressure signal</div>
-                        <div class="board-col col-reading">Reading</div>
-                    </div>
-                    
-                    <!-- China -->
-                    <div class="board-row">
-                        <div class="board-col col-economy">
-                            <span class="economy-name">China</span>
-                        </div>
-                        <div class="board-col col-rebound">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2020 GDP</span>
-                                    <span class="metric-value highlight-teal">2.34%</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">2021 GDP</span>
-                                    <span class="metric-value highlight-teal">8.57%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-pressure">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2023 inflation</span>
-                                    <span class="metric-value highlight-amber">0.23%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-reading">
-                            <div class="reading-badge">Structurally different recovery pattern</div>
-                        </div>
-                    </div>
-
-                    <!-- France -->
-                    <div class="board-row">
-                        <div class="board-col col-economy">
-                            <span class="economy-name">France</span>
-                        </div>
-                        <div class="board-col col-rebound">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2020 GDP</span>
-                                    <span class="metric-value highlight-red">-7.44%</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">2021 GDP</span>
-                                    <span class="metric-value highlight-teal">6.88%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-pressure">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2022 inflation</span>
-                                    <span class="metric-value highlight-amber">5.22%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-reading">
-                            <div class="reading-badge">Rebound mattered, but quality still needed caution</div>
-                        </div>
-                    </div>
-
-                    <!-- Germany -->
-                    <div class="board-row">
-                        <div class="board-col col-economy">
-                            <span class="economy-name">Germany</span>
-                        </div>
-                        <div class="board-col col-rebound">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2020 GDP</span>
-                                    <span class="metric-value highlight-red">-4.13%</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">2023 GDP</span>
-                                    <span class="metric-value highlight-red">-0.87%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-pressure">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2022 inflation</span>
-                                    <span class="metric-value highlight-red">6.87%</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">2023 inflation</span>
-                                    <span class="metric-value highlight-amber">5.95%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-reading">
-                            <div class="reading-badge">Recovery weakened later</div>
-                        </div>
-                    </div>
-
-                    <!-- Singapore -->
-                    <div class="board-row">
-                        <div class="board-col col-economy">
-                            <span class="economy-name">Singapore</span>
-                        </div>
-                        <div class="board-col col-rebound">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2020 GDP</span>
-                                    <span class="metric-value highlight-red">-3.81%</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">2021 GDP</span>
-                                    <span class="metric-value highlight-teal">9.76%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-pressure">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2022 inflation</span>
-                                    <span class="metric-value highlight-amber">6.13%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-reading">
-                            <div class="reading-badge">Fastest rebound, but later pressure changed the reading</div>
-                        </div>
-                    </div>
-
-                    <!-- United States -->
-                    <div class="board-row">
-                        <div class="board-col col-economy">
-                            <span class="economy-name">United States</span>
-                        </div>
-                        <div class="board-col col-rebound">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2020 GDP</span>
-                                    <span class="metric-value highlight-red">-2.16%</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">2021 GDP</span>
-                                    <span class="metric-value highlight-teal">6.06%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-pressure">
-                            <div class="metric-block">
-                                <div class="metric-item">
-                                    <span class="metric-label">2022 inflation</span>
-                                    <span class="metric-value highlight-red">8.00%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="board-col col-reading">
-                            <div class="reading-badge">Clear rebound, but strongest inflation pressure</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="board-summary-panel">
-                    <div class="summary-content">
-                        <h4>Combined reading</h4>
-                        <p>Fast recovery and stable recovery were not always the same. Cross-country comparison showed that rebound strength and inflation pressure often changed the recovery reading.</p>
-                    </div>
-                </div>
+          </article>
+          <article class="logic-card insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <span>04</span>
+            <h3>Final rule selected</h3>
+            <p>A stricter rule based strictly on engagement depth.</p>
+            <div class="card-insight">
+              <strong>Risk solved:</strong> Made the metric more defensible by removing timing artifacts.
             </div>
-        </section>
-
-        <!-- 6. Data Pipeline Proof -->
-        <section id="pipeline" class="diagnostic-section">
-            <div class="section-header">
-                <h2>From raw public files to an analysis-ready comparison table.</h2>
-                <p class="section-explain">The project used SQL in BigQuery to clean, reshape, and join raw World Bank GDP and inflation files into a country-year analytical table suitable for Tableau visualization.</p>
+          </article>
+          <article class="logic-card decision insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <span>05</span>
+            <h3>Segmentation prepared</h3>
+            <p>Building the final subscription-level table.</p>
+            <div class="card-insight">
+              <strong>Why it mattered:</strong> Enabled segmented views by referral source and plan tier.
             </div>
+          </article>
+        </div>
+      </section>
 
-            <div class="pipeline-grid">
-                <div class="pipeline-steps">
-                    <ol class="tech-list">
-                        <li>Imported raw World Bank GDP and inflation files</li>
-                        <li>Filtered selected countries and years</li>
-                        <li>Reshaped wide-format year columns into long country-year records</li>
-                        <li>Standardized country and year fields</li>
-                        <li>Joined GDP growth and inflation into one analytical table</li>
-                        <li>Validated row count, country scope, year scope, and missing values</li>
-                        <li>Exported the processed CSV for Tableau visualization</li>
-                    </ol>
-                </div>
-                <div class="pipeline-table-summary">
-                    <div class="table-card">
-                        <div class="table-header">Final table</div>
-                        <div class="table-name">economic_analysis_5countries.csv</div>
-                        
-                        <div class="table-meta">
-                            <div class="meta-row">
-                                <span class="meta-label">Grain</span>
-                                <span class="meta-value">One row per country per year</span>
-                            </div>
-                            <div class="meta-row">
-                                <span class="meta-label">Scope</span>
-                                <span class="meta-value">5 countries, 2018 to 2023, 30 rows</span>
-                            </div>
-                            <div class="meta-row">
-                                <span class="meta-label">Fields</span>
-                                <span class="meta-value field-tags">
-                                    <span class="tag">Country</span>
-                                    <span class="tag">Year</span>
-                                    <span class="tag">GDP_Growth</span>
-                                    <span class="tag">Inflation</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <section class="content-section" id="source-signal">
+        <div class="section-kicker reveal">Source Signal</div>
+        <div class="section-heading reveal">
+          <h2>Referral source shaped activation quality.</h2>
+          <p>
+            Organic and Event channels brought in significantly stronger cohorts than Paid Ads.
+          </p>
+        </div>
 
-        <!-- 7. What This Analysis Can and Cannot Say -->
-        <section class="alt-bg">
-            <div class="section-header">
-                <h2>A stronger reading, not a complete economic model.</h2>
-                <p class="section-explain">This descriptive analysis improves on a single-metric view, but it remains a simplified comparison tool.</p>
+        <div class="action-dashboard reveal">
+          <div class="action-chart" aria-label="Source signals">
+            <div class="bar-row insight-card" tabindex="0" role="button" aria-expanded="false">
+              <span>Organic</span>
+              <div class="bar-track">
+                <div class="bar-fill increase" style="--w: 53.08%"></div>
+              </div>
+              <strong class="counter" data-target="53.08">53.08%</strong>
+              <div class="card-insight" style="grid-column: 1 / -1;">
+                Strongest activation signal. Users finding the product organically showed the highest intent and activation rate.
+              </div>
             </div>
+            <div class="bar-row insight-card" tabindex="0" role="button" aria-expanded="false">
+              <span>Event</span>
+              <div class="bar-track">
+                <div class="bar-fill increase" style="--w: 52.89%"></div>
+              </div>
+              <strong class="counter" data-target="52.89">52.89%</strong>
+              <div class="card-insight" style="grid-column: 1 / -1;">
+                Strong event-driven activation. Direct engagement at events translated into high product adoption.
+              </div>
+            </div>
+            <div class="bar-row insight-card" tabindex="0" role="button" aria-expanded="false">
+              <span>Partner</span>
+              <div class="bar-track">
+                <div class="bar-fill review" style="--w: 49.77%"></div>
+              </div>
+              <strong class="counter" data-target="49.77">49.77%</strong>
+              <div class="card-insight" style="grid-column: 1 / -1;">
+                Middling performance, needs closer review to ensure partner referrals are well-qualified.
+              </div>
+            </div>
+            <div class="bar-row insight-card" tabindex="0" role="button" aria-expanded="false">
+              <span>Ads</span>
+              <div class="bar-track">
+                <div class="bar-fill reduce" style="--w: 49.40%"></div>
+              </div>
+              <strong class="counter" data-target="49.40">49.40%</strong>
+              <div class="card-insight" style="grid-column: 1 / -1;">
+                Weaker activation quality. Paid traffic converted but failed to activate at the same rate as organic channels.
+              </div>
+            </div>
+            <div class="bar-row insight-card" tabindex="0" role="button" aria-expanded="false">
+              <span>Other</span>
+              <div class="bar-track">
+                <div class="bar-fill reduce" style="--w: 49.17%"></div>
+              </div>
+              <strong class="counter" data-target="49.17">49.17%</strong>
+              <div class="card-insight" style="grid-column: 1 / -1;">
+                Weakest group in this view, requiring further breakdown to understand the underlying causes.
+              </div>
+            </div>
+          </div>
+          <div class="action-note">
+            <p class="large-number">
+              <span class="counter" data-target="50.92">50.92%</span>
+              <small>aggregate average</small>
+            </p>
+            <p>
+              The average hides the variance. Organic traffic outperforms the average significantly, while paid ads introduce activation drag.
+            </p>
+          </div>
+        </div>
+      </section>
 
-            <div class="limits-columns">
-                <div class="limit-col">
-                    <h3>What it improves</h3>
-                    <ul class="check-list">
-                        <li>Adds a second dimension (inflation) to the headline rebound signal.</li>
-                        <li>Highlights the friction of the recovery, not just the speed.</li>
-                        <li>Standardizes country data for easier cross-economy comparison.</li>
-                    </ul>
-                </div>
-                <div class="limit-col">
-                    <h3>What it does not cover</h3>
-                    <ul class="cross-list">
-                        <li>Does not establish causal links between specific policies and outcomes.</li>
-                        <li>Excludes other critical factors like debt levels, employment, or trade.</li>
-                        <li>Does not predict future growth or account for regional shocks.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+      <section class="content-section" id="plan-signal">
+        <div class="section-kicker reveal">Plan Tier Signal</div>
+        <div class="section-heading reveal">
+          <h2>Plan tier changed the interpretation.</h2>
+          <p>
+            Enterprise plans, despite higher commercial value, underperformed the cheaper tiers in pure activation rate.
+          </p>
+        </div>
 
-        <!-- 8. Final Takeaway -->
-        <section class="takeaway-section" id="takeaway">
-            <div class="takeaway-content">
-                <h2 class="takeaway-headline">The Shift</h2>
-                <p class="takeaway-statement">Moving from measuring <strong>speed</strong> to measuring <strong>stability</strong> changes how we value economic success.</p>
-                <div class="takeaway-divider"></div>
-                <p class="takeaway-close">By grounding analysis in multiple signals, we move closer to understanding the true quality of a recovery.</p>
+        <div class="platform-grid">
+          <article class="platform-card insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <div>
+              <h3>Basic</h3>
+              <p>Strongest plan-tier signal</p>
             </div>
-        </section>
+            <strong>52.25%</strong>
+            <span>Activation Rate</span>
+            <div class="card-insight">
+              Basic tier users showed the highest motivation to engage deeply with the product features early on.
+            </div>
+          </article>
+          <article class="platform-card insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <div>
+              <h3>Pro</h3>
+              <p>Stable activation</p>
+            </div>
+            <strong>51.46%</strong>
+            <span>Activation Rate</span>
+            <div class="card-insight">
+              Stable but not clearly strongest. Pro users activate well, pulling the aggregate average slightly up.
+            </div>
+          </article>
+          <article class="platform-card insight-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <div>
+              <h3>Enterprise</h3>
+              <p>Higher expectation, lower activation</p>
+            </div>
+            <strong>49.16%</strong>
+            <span>Activation Rate</span>
+            <div class="card-insight">
+              Weaker activation despite higher commercial expectation. Enterprise seats may be purchased but under-utilized, posing a churn risk.
+            </div>
+          </article>
+        </div>
+      </section>
 
-        <!-- 9. Contact & Links -->
-        <section class="links-section alt-bg">
-            <div class="links-grid">
-                <div class="link-card">
-                    <span class="link-eyebrow">Project</span>
-                    <h3>Documentation</h3>
-                    <p>Read the technical case study on how this data was cleaned and visualized.</p>
-                    <div class="contact-links">
-                        <a href="https://joonhan.me/stability-over-speed" class="btn btn-secondary">View Case Study</a>
-                    </div>
-                </div>
-                <div class="link-card">
-                    <span class="link-eyebrow">Connect</span>
-                    <h3>Joon Han</h3>
-                    <p>Analytical designer and strategist specializing in data-driven storytelling.</p>
-                    <div class="contact-links">
-                        <a href="https://linkedin.com/in/joonhanofficial" class="btn btn-tertiary">LinkedIn</a>
-                        <a href="mailto:hello@joonhan.me" class="btn btn-tertiary">Email</a>
-                    </div>
-                </div>
+      <section class="content-section efficiency" id="insights">
+        <div class="section-kicker reveal">Final Interpretation</div>
+        <div class="section-heading reveal">
+          <h2>The useful signal was not the average. It was the pattern underneath it.</h2>
+          <p>
+            Activation quality was not just a product metric. It was shaped by acquisition context and subscription context together.
+          </p>
+        </div>
+
+        <div class="efficiency-board reveal" style="grid-template-columns: repeat(3, 1fr);">
+          <article class="efficiency-card leader insight-card" tabindex="0" role="button" aria-expanded="false">
+            <h3>1. Source Quality</h3>
+            <p>Organic and event channels brought in significantly stronger cohorts than paid ads.</p>
+            <div class="card-insight compact">
+              Marketing spend should factor in post-signup activation, not just acquisition cost.
             </div>
-        </section>
+          </article>
+          <article class="efficiency-card leader insight-card" tabindex="0" role="button" aria-expanded="false">
+            <h3>2. Plan Tier Reality</h3>
+            <p>Enterprise plans underperformed the cheaper tiers in pure activation rate.</p>
+            <div class="card-insight compact">
+              Sales-led motion might require stronger post-sale onboarding compared to self-serve tiers.
+            </div>
+          </article>
+          <article class="efficiency-card warning insight-card" tabindex="0" role="button" aria-expanded="false">
+            <h3>3. Interaction</h3>
+            <p>Activation quality is shaped by acquisition context and subscription context together.</p>
+            <div class="card-insight compact">
+              A single metric is dangerous without the segmentation context beneath it.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="proof content-section reveal" id="links">
+        <div>
+          <div class="section-kicker">Full Case Study</div>
+          <h2>Continue the Full Case Study</h2>
+          <p>
+            Read the complete analytical breakdown, including the Tableau dashboard, Python workflow, and segmentation logic used to isolate the activation signal.
+          </p>
+        </div>
+        <div class="button-row">
+          <a
+            class="button primary"
+            href="https://www.joonhananalytics.com/case-studies/acquisition-quality"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read Full Case Study
+          </a>
+        </div>
+      </section>
+
+      <section class="proof content-section reveal">
+        <div>
+          <div class="section-kicker">GitHub</div>
+          <h2>Inspect the Project Repo</h2>
+          <p>
+            Review the Python notebook, processed activation table, Tableau workbook, and project documentation behind this diagnostic.
+          </p>
+        </div>
+        <div class="button-row">
+          <a
+            class="button primary"
+            href="https://github.com/joonhanofficial/saas-activation-diagnostic"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View GitHub Repo
+          </a>
+        </div>
+      </section>
+
+      <section class="proof content-section reveal">
+        <div>
+          <div class="section-kicker">Contact</div>
+          <h2>Connect With Me</h2>
+          <p>
+            Discuss analytical diagnostics, segmentation thinking, or opportunities to improve activation reporting.
+          </p>
+        </div>
+        <div class="button-row">
+          <a
+            class="button primary"
+            href="https://www.joonhananalytics.com/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Portfolio Contact
+          </a>
+          <a
+            class="button"
+            href="https://www.linkedin.com/in/joon-hanofficial"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a
+            class="button"
+            href="mailto:joonhan.work@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Email
+          </a>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
-        <p>© 2024 Stability Over Speed. A diagnostic research prototype.</p>
-        <p class="footer-note">Built with HTML/CSS and World Bank Public Data.</p>
+      <p>SaaS Activation Diagnostic Microsite</p>
+      <a href="#top">Back to top</a>
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

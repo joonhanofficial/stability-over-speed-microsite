@@ -509,13 +509,41 @@ section {
     gap: var(--spacing-md);
 }
 
+.country-card {
+    height: 320px; /* Increased to accommodate structured back content */
+}
+
+.country-card .card-back {
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+}
+
 .country-name {
     font-size: 1.5rem;
     font-weight: 600;
     display: block;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border-light);
+}
+
+.reveal-sublabel {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-teal);
+    margin-bottom: 0.5rem;
+    display: block;
+    font-weight: 600;
+}
+
+.country-card .interpretation {
+    font-style: normal;
+    border-left: none;
+    padding-left: 0;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+    font-size: 0.9rem !important;
 }
 
 .signal-highlight {
@@ -551,20 +579,21 @@ section {
 .highlight-blue { color: var(--accent-blue); }
 
 .context-stats {
-    margin-top: 1.5rem;
+    margin-top: 0.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
 .context-stat {
     font-size: 0.85rem;
     color: var(--text-secondary);
     background-color: rgba(255, 255, 255, 0.05);
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.5rem;
     border-radius: var(--radius-sm);
-    display: inline-block;
-    width: fit-content;
+    display: block;
+    width: 100%;
+    border-left: 2px solid var(--border-color);
 }
 
 /* 5. Diagnostic Visual */

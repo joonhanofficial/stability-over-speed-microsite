@@ -1,1 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stability Over Speed | Digital Diagnostics by Joon Han</title>
+    <meta name="description" content="A self-directed SQL and Tableau case study testing whether post-COVID recovery still looked strong when GDP growth was read alongside inflation pressure.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">Joon Han | Digital Diagnostics</div>
+        <div class="nav-links">
+            <a href="#metric-trap">Question</a>
+            <a href="#signals">Signals</a>
+            <a href="#countries">Countries</a>
+            <a href="#diagnostic">Diagnostic</a>
+            <a href="#pipeline">Pipeline</a>
+            <a href="#limits">Limits</a>
+            <a href="#links">Links</a>
+        </div>
+        <div class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. Hero -->
+        <section id="hero" class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Stability Over Speed</h1>
                     <h2 class="hero-subtitle">A SQL and Tableau diagnostic examining how inflation pressure changed the reading of post-COVID GDP recovery.</h2>
+                    
+                    <div class="hero-statement-box">
+                        <p class="hero-statement">Headline GDP rebound looked positive after 2020. This diagnostic tested whether that recovery still looked stable once inflation was added as a second pressure signal.</p>
+                        <span class="thesis-label">Core diagnostic</span>
+                        <p class="hero-framing">GDP showed the rebound. Inflation changed the reading.</p>
+                    </div>
+
+                    <div class="stat-cards">
+                        <div class="stat-card">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Economies</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">2018&ndash;2023</span>
+                            <span class="stat-label">timeframe</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">30</span>
+                            <span class="stat-label">country-year rows</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">recovery signals</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-interactive-module">
+                    <div class="module-header">
+                        <h3>Recovery Signal Explorer</h3>
+                        <p>Hover or tap a country to inspect how the recovery reading changes.</p>
+                    </div>
+                    
+                    <div class="country-selector">
+                        <button class="country-btn active" data-country="china">China</button>
+                        <button class="country-btn" data-country="france">France</button>
+                        <button class="country-btn" data-country="germany">Germany</button>
+                        <button class="country-btn" data-country="singapore">Singapore</button>
+                        <button class="country-btn" data-country="united-states">United States</button>
+                    </div>
+
+                    <div class="signal-panels">
+                        <div class="signal-panel active" id="panel-china">
+                            <h4>China</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Positive 2020 growth</span>
+                                <span class="signal-num highlight-amber">2.34% <small>GDP growth in 2020</small></span>
+                            </div>
+                            <p class="interpretation">China was the only selected economy that stayed positive in 2020, so its recovery path should not be read the same way as the contraction-and-rebound pattern seen elsewhere.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-france">
+                            <h4>France</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Sharpest contraction</span>
+                                <span class="signal-num highlight-red">-7.44% <small>GDP growth in 2020</small></span>
+                            </div>
+                            <p class="interpretation">France showed the deepest 2020 contraction in this comparison, making rebound important but not enough to judge recovery quality alone.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-germany">
+                            <h4>Germany</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Recovery weakened later</span>
+                                <span class="signal-num highlight-red">-0.87% <small>GDP growth in 2023</small></span>
+                            </div>
+                            <p class="interpretation">Germany showed that recovery was not a straight-line rebound. Growth turned negative in 2023 while inflation remained elevated at 5.95%.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-singapore">
+                            <h4>Singapore</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Fastest rebound</span>
+                                <span class="signal-num highlight-teal">9.76% <small>GDP growth in 2021</small></span>
+                            </div>
+                            <p class="interpretation">Singapore had the strongest rebound in 2021, but later inflation pressure showed why speed should not be treated as stability by itself.</p>
+                        </div>
+
+                        <div class="signal-panel" id="panel-united-states">
+                            <h4>United States</h4>
+                            <div class="signal-main">
+                                <span class="signal-desc">Highest inflation pressure</span>
+                                <span class="signal-num highlight-blue">8.00% <small>inflation in 2022</small></span>
+                            </div>
+                            <p class="interpretation">The United States rebounded after 2020, but inflation pressure changed how strong that recovery looked.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. The Metric Trap -->
+        <section id="metric-trap" class="diagnostic-section">
+            <div class="section-header">
+                <h2>A rebound number is not the same as recovery quality.</h2>
+                <p class="section-explain">GDP growth can show whether output fell and later recovered. But GDP alone does not show whether that recovery happened under rising price pressure. This project added inflation as a second signal to make the recovery reading more cautious.</p>
+            </div>
+
+            <div class="diagnostic-cards-grid">
+                <div class="diagnostic-card interactive-card">
+                    <div class="card-front">
+                        <span class="card-eyebrow">Card 1</span>
+                        <h3>Headline Signal</h3>
+                        <p>GDP growth shows contraction and rebound.</p>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">A single dimension of output recovery, necessary but incomplete without context on cost pressures.</p>
+                    </div>
+                </div>
+
+                <div class="diagnostic-card interactive-card">
+                    <div class="card-front">
+                        <span class="card-eyebrow">Card 2</span>
+                        <h3>Pressure Signal</h3>
+                        <p>Inflation shows whether recovery happened under rising cost pressure.</p>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">Acts as a counter-weight to output growth, revealing if the recovery speed was paid for with stability.</p>
+                    </div>
+                </div>
+
+                <div class="diagnostic-card interactive-card">
+                    <div class="card-front">
+                        <span class="card-eyebrow">Card 3</span>
+                        <h3>Better Reading</h3>
+                        <p>Reading both together gives a more careful view of recovery quality.</p>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">Shifts the focus from "how fast are we recovering" to "how stable is the recovery we are getting."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Diagnostic Question -->
+        <section id="signals" class="diagnostic-section alt-bg">
+            <div class="section-header center">
+                <h2>When GDP rebounds after a shock, does that mean recovery is actually stable?</h2>
+                <p class="section-explain">This project did not try to explain every macroeconomic cause. It tested whether a growth-only interpretation could overstate recovery strength when inflation moved at the same time.</p>
+            </div>
+
+            <div class="logic-chain">
+                <div class="logic-step">Headline GDP rebound</div>
+                <div class="logic-arrow">→</div>
+                <div class="logic-step highlight">Add inflation pressure</div>
+                <div class="logic-arrow">→</div>
+                <div class="logic-step">Compare across countries</div>
+                <div class="logic-arrow">→</div>
+                <div class="logic-step focus">Read recovery quality more carefully</div>
+            </div>
+        </section>
+
+        <!-- 4. Five Economy Signal Cards -->
+        <section id="countries" class="diagnostic-section">
+            <div class="section-header">
+                <h2>Five economies. Different recovery readings.</h2>
+                <p class="section-explain instruction-note">Hover or tap cards to see how this changes the recovery reading.</p>
+            </div>
+
+            <div class="country-cards-grid">
+                <!-- China -->
+                <div class="country-card interactive-card">
+                    <div class="card-front">
+                        <span class="country-name">China</span>
+                        <div class="signal-highlight">
+                            <span class="signal-desc">Positive 2020 growth</span>
+                            <span class="signal-num highlight-amber">2.34% <small>GDP growth in 2020</small></span>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">China was the only selected economy that stayed positive in 2020, making its recovery pattern structurally different from the contraction-and-rebound pattern elsewhere.</p>
+                        <div class="context-stats">
+                            <span class="context-stat">2021 GDP: 8.57%</span>
+                            <span class="context-stat">2023 Inflation: 0.23%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- France -->
+                <div class="country-card interactive-card">
+                    <div class="card-front">
+                        <span class="country-name">France</span>
+                        <div class="signal-highlight">
+                            <span class="signal-desc">Sharpest contraction</span>
+                            <span class="signal-num highlight-red">-7.44% <small>GDP growth in 2020</small></span>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">France showed the deepest 2020 contraction in this comparison, making the later rebound important but not enough to judge recovery quality alone.</p>
+                        <div class="context-stats">
+                            <span class="context-stat">2021 GDP: 6.88%</span>
+                            <span class="context-stat">2022 Inflation: 5.22%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Germany -->
+                <div class="country-card interactive-card">
+                    <div class="card-front">
+                        <span class="country-name">Germany</span>
+                        <div class="signal-highlight">
+                            <span class="signal-desc">Recovery weakened later</span>
+                            <span class="signal-num highlight-red">-0.87% <small>GDP growth in 2023</small></span>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">Germany showed that recovery was not a straight-line rebound. Growth turned negative in 2023 while inflation remained elevated at 5.95%.</p>
+                        <div class="context-stats">
+                            <span class="context-stat">2020 GDP: -4.13%</span>
+                            <span class="context-stat">2022 Inflation: 6.87%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Singapore -->
+                <div class="country-card interactive-card">
+                    <div class="card-front">
+                        <span class="country-name">Singapore</span>
+                        <div class="signal-highlight">
+                            <span class="signal-desc">Fastest rebound</span>
+                            <span class="signal-num highlight-teal">9.76% <small>GDP growth in 2021</small></span>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">Singapore had the strongest 2021 rebound, but later inflation pressure showed why speed should not be read as stability by itself.</p>
+                        <div class="context-stats">
+                            <span class="context-stat">2020 GDP: -3.81%</span>
+                            <span class="context-stat">2022 Inflation: 6.13%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- United States -->
+                <div class="country-card interactive-card">
+                    <div class="card-front">
+                        <span class="country-name">United States</span>
+                        <div class="signal-highlight">
+                            <span class="signal-desc">Highest inflation pressure</span>
+                            <span class="signal-num highlight-blue">8.00% <small>inflation in 2022</small></span>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <p class="interpretation">The United States showed a clear rebound after 2020, but 2022 inflation pressure changed how that recovery should be interpreted.</p>
+                        <div class="context-stats">
+                            <span class="context-stat">2020 GDP: -2.16%</span>
+                            <span class="context-stat">2021 GDP: 6.06%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. GDP vs Inflation Diagnostic View -->
+        <section id="diagnostic" class="diagnostic-section alt-bg">
+            <div class="section-header">
+                <h2>GDP showed the rebound. Inflation changed the reading.</h2>
+                <p class="section-explain">GDP growth showed the contraction and rebound pattern. Inflation showed whether the rebound happened alongside rising price pressure. Reading both together made the recovery signal more cautious than a GDP-only view.</p>
+                <div class="credibility-note">Comparative descriptive view, not a causal economic model.</div>
+            </div>
+
+            <div class="diagnostic-visual-container">
+                <div class="visual-lanes">
+                    <div class="lane">
+                        <div class="lane-header">GDP Growth <span class="badge">Rebound Signal</span></div>
+                        <div class="lane-viz">
+                            <svg viewBox="0 0 400 100" class="abstract-chart">
+                                <path class="zero-line" d="M0,50 L400,50" />
+                                <path class="rebound-line" d="M0,50 Q100,90 150,90 T250,20 T400,40" />
+                                <circle cx="150" cy="90" r="4" class="point-drop" />
+                                <circle cx="250" cy="20" r="4" class="point-peak" />
+                            </svg>
+                            <div class="lane-caption">Shows contraction and rebound across selected economies.</div>
+                        </div>
+                    </div>
+                    <div class="lane">
+                        <div class="lane-header">Inflation <span class="badge warning">Pressure Signal</span></div>
+                        <div class="lane-viz">
+                            <svg viewBox="0 0 400 100" class="abstract-chart">
+                                <path class="base-line" d="M0,80 L400,80" />
+                                <path class="pressure-line" d="M0,80 Q100,75 150,80 T250,20 T400,40" />
+                                <circle cx="250" cy="20" r="4" class="point-pressure" />
+                                <circle cx="400" cy="40" r="4" class="point-pressure-end" />
+                            </svg>
+                            <div class="lane-caption">Shows whether recovery happened under rising price pressure.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="combined-panel">
+                    <div class="panel-icon">⚲</div>
+                    <div class="panel-content">
+                        <h4>Combined View</h4>
+                        <p>Suggests that recovery speed and recovery stability should be interpreted separately. Fast recovery and stable recovery were not always the same.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Data Pipeline Proof -->
+        <section id="pipeline" class="diagnostic-section">
+            <div class="section-header">
+                <h2>From raw public files to an analysis-ready comparison table.</h2>
+                <p class="section-explain">The project used SQL in BigQuery to clean, reshape, and join raw World Bank GDP and inflation files into a country-year analytical table suitable for Tableau visualization.</p>
+            </div>
+
+            <div class="pipeline-grid">
+                <div class="pipeline-steps">
+                    <ol class="tech-list">
+                        <li>Imported raw World Bank GDP and inflation files</li>
+                        <li>Filtered selected countries and years</li>
+                        <li>Reshaped wide-format year columns into long country-year records</li>
+                        <li>Standardized country and year fields</li>
+                        <li>Joined GDP growth and inflation into one analytical table</li>
+                        <li>Validated row count, country scope, year scope, and missing values</li>
+                        <li>Exported the processed CSV for Tableau visualization</li>
+                    </ol>
+                </div>
+                <div class="pipeline-table-summary">
+                    <div class="table-card">
+                        <div class="table-header">Final table</div>
+                        <div class="table-name">economic_analysis_5countries.csv</div>
+                        
+                        <div class="table-meta">
+                            <div class="meta-row">
+                                <span class="meta-label">Grain</span>
+                                <span class="meta-value">One row per country per year</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Scope</span>
+                                <span class="meta-value">5 countries, 2018 to 2023, 30 rows</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Fields</span>
+                                <span class="meta-value field-tags">
+                                    <span class="tag">Country</span>
+                                    <span class="tag">Year</span>
+                                    <span class="tag">GDP_Growth</span>
+                                    <span class="tag">Inflation</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. What This Analysis Can and Cannot Say -->
+        <section id="limits" class="diagnostic-section alt-bg">
+            <div class="section-header">
+                <h2>A stronger reading, not a complete economic model.</h2>
+            </div>
+
+            <div class="limits-columns">
+                <div class="limit-col can-say">
+                    <h3>What this analysis can suggest</h3>
+                    <ul class="check-list">
+                        <li>GDP rebound alone can overstate recovery strength</li>
+                        <li>Inflation adds useful pressure context</li>
+                        <li>Recovery speed and recovery quality should be interpreted separately</li>
+                        <li>Cross-country comparison helps reveal different recovery patterns</li>
+                    </ul>
+                </div>
+                <div class="limit-col cannot-say">
+                    <h3>What this analysis cannot prove</h3>
+                    <ul class="cross-list">
+                        <li>It does not establish causality</li>
+                        <li>It does not explain all macroeconomic drivers</li>
+                        <li>It does not define full economic stability</li>
+                        <li>It uses only GDP growth and inflation across five selected countries</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Final Takeaway -->
+        <section class="takeaway-section">
+            <div class="takeaway-content">
+                <h2 class="takeaway-headline">Recovery speed did not always mean recovery stability.</h2>
+                <p class="takeaway-statement">GDP showed the rebound, but inflation changed how that rebound should be interpreted.</p>
+                <div class="takeaway-divider"></div>
+                <p class="takeaway-close">The value of the project was not predicting the economy. It was building a cleaner analytical lens for reading a headline metric with more caution.</p>
+            </div>
+        </section>
+
+        <!-- 9. Proof / Links -->
+        <section id="links" class="links-section">
+            <div class="links-grid">
+                <!-- Section A -->
+                <div class="link-card">
+                    <span class="link-eyebrow">Section A</span>
+                    <h3>Continue the Full Case Study</h3>
+                    <p>Read the complete breakdown of the methodology and insights.</p>
+                    <a href="https://www.joonhananalytics.com/case-studies/economic-data-pipeline" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Read Full Case Study</a>
+                </div>
+
+                <!-- Section B -->
+                <div class="link-card">
+                    <span class="link-eyebrow">Section B</span>
+                    <h3>Inspect the Project Repo</h3>
+                    <p>Review the SQL scripts and underlying public data files.</p>
+                    <a href="GITHUB_PROJECT_REPO_URL_HERE" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">View GitHub Repo</a>
+                </div>
+
+                <!-- Section C -->
+                <div class="link-card">
+                    <span class="link-eyebrow">Section C</span>
+                    <h3>Connect With Me</h3>
+                    <p>Reach out for diagnostic analytics and data projects.</p>
+                    <div class="contact-links">
+                        <a href="https://www.joonhananalytics.com/contact" class="btn btn-tertiary" target="_blank" rel="noopener noreferrer">Portfolio Contact</a>
+                        <a href="https://www.linkedin.com/in/joon-hanofficial" class="btn btn-tertiary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:joonhan.work@gmail.com" class="btn btn-tertiary">Email</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Joon Han | Digital Diagnostics</p>
+            <p class="footer-note">Stability Over Speed Case Study Microsite</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

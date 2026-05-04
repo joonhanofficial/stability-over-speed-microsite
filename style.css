@@ -440,6 +440,24 @@ section {
     padding-left: 1rem;
 }
 
+.diagnostic-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-teal);
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.diagnostic-card .card-back {
+    justify-content: flex-start;
+    padding-top: 2rem;
+}
+
+.diagnostic-card .card-back h3 {
+    margin-bottom: 1rem;
+}
+
 /* 2. Metric Trap */
 .diagnostic-cards-grid {
     display: grid;
